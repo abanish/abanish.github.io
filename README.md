@@ -1,5 +1,5 @@
 # Application Description
-This is my personal webpage/blog. You can access it [here](https://abanish.github.io).
+This is my personal webpage/blog. Access it [here](https://abanish.github.io).
 
 # Future Improvement
 * include blogs
