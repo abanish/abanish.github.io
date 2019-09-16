@@ -1,0 +1,83 @@
+<h1>Word Clouds in Python</h1>
+<br>
+<h6>3 min read</h6>
+<h6 id="date">Sept 8, 2018</h6>
+<br>
+
+<p>Data are generally massive, and getting information out of them at a glance is not possible. Therefore,
+    people usually tend to use graphs, charts to display them in the business world.
+    In data science, when the information is text-based,  one of the best ways to get
+    something out of them is Word Clouds.
+    Word Clouds are sweet visualization method that displays how frequently words
+    appear in a given dataset by making the size of each word proportional to the number
+    of times the word occurs in the dataset. Typically, Word Clouds are used to depict
+    keywords in the text.  The words are displayed in a cluster type image.
+    As seen below:</p>
+<img src="../../assets/images/wordCloud.png"/>
+<p>
+<br>
+In python, we can easily use a few libraries to create Word Clouds.
+Libraries that are required are:</p>
+<br>
+<ul>
+<li>Matplotlib</li>
+<li>wordcloud</li>
+<li>pandas</li>
+<li>numpy</li>
+</ul>
+
+<p>
+These libraries can be easily installed using pip.
+In the code below, a CSV file is used, which is a standard format
+used for data storage in files. Any other filetype can be used easily.
+<br>
+</p>
+<pre  class="prettyprint"><code>
+import collections<br>
+import numpy as np<br>
+import pandas as pd<br>
+import matplotlib.cm as cm<br>
+import matplotlib.pyplot as plt<br>
+from matplotlib import rcParams<br>
+from wordcloud import WordCloud<br>
+<br>
+// dataset.csv is the file containing text<br>
+dataset = pd.read_csv('dataset.csv', encoding='latin-1')<br>
+<br>
+// "Content" is the column which has the text to be analysed<br>
+all_text = ' '.join(dataset['Content'].str.lower())<br>
+<br>
+wordcloud = WordCloud(background_color="white", max_words=1000).generate(all_text)<br>
+<br>
+rcParams['figure.figsize'] = 10, 20<br>
+plt.imshow(wordcloud)<br>
+plt.axis("off")<br>
+plt.show()<br>
+</code>
+</pre>
+
+<p>Removing stopwords from the body of text gives much better visualization as it
+    eliminates unnecessary words and focusses on only relevant words. Stop words are a
+    set of commonly used words in any language. For example, in English, “the”, “is” and
+    “and”, would easily qualify as stop words.
+    There is a straightforward step to remove stop words for text mining.
+    All stop words can be collected in a text file. Let us say the filename
+    is stopwords.txt.</p>
+
+<pre  class="prettyprint"><code>
+<br>
+with open('../data/stopwords.txt', "r") as word_list:<br>
+    stopwords = word_list.read().split('\n')<br>
+</code>
+</pre>
+
+<p>Then add the stopword parameter to the wordcloud api call.</p>
+
+<br>
+<pre  class="prettyprint"><code>
+<br>
+wordcloud = WordCloud(stopwords=stopwords, background_color="white", max_words=1000).generate(all_text)<br>
+</code>
+</pre>
+
+<p>One last thing, don't name the python file as wordcloud.py, it will not work. Name it anything else. :)</p>
